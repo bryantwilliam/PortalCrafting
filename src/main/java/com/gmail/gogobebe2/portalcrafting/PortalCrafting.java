@@ -16,12 +16,20 @@ public class PortalCrafting extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        ItemStack portal = new ItemStack(Material.ENDER_PORTAL_FRAME);
-        setName(portal, ChatColor.BLUE + "Entry Portal");
-        setRecipe(portal, PortalType.ENTRY);
+        initializePortalItems();
     }
 
-    private void setRecipe(ItemStack item, PortalType type) {
+    private static void initializePortalItems() {
+        createPortalItem(PortalType.ENTRY);
+        createPortalItem(PortalType.EXIT);
+    }
+    private static void createPortalItem(PortalType type) {
+        ItemStack portal = new ItemStack(Material.ENDER_PORTAL_FRAME);
+        setMeta(portal, type.equals(PortalType.ENTRY) ? ChatColor.BLUE + "Entry Portal" : ChatColor.RED + "Exit Portal");
+        setRecipe(portal, type);
+    }
+
+    private static void setRecipe(ItemStack item, PortalType type) {
         ShapedRecipe recipe;
         final Material[] PLATE_TYPES = {Material.GOLD_PLATE, Material.IRON_PLATE, Material.STONE_PLATE, Material.WOOD_PLATE};
         for (Material plateType : PLATE_TYPES) {
@@ -30,16 +38,22 @@ public class PortalCrafting extends JavaPlugin {
             recipe.shape("ABA", "ACA", "AAA");
             recipe.setIngredient('A', Material.DIAMOND_BLOCK);
             recipe.setIngredient('B', plateType);
-            recipe.setIngredient('C', type.equals(PortalType.ENTRY) ? Material.DROPPER : Material.DISPENSER);
+            recipe.setIngredient('C', type.equals(PortalType.ENTRY) ? Material.HOPPER : Material.DISPENSER);
 
             Bukkit.getServer().addRecipe(recipe);
         }
     }
 
-    public static ItemStack setName(ItemStack stack, String name){
+    private static void setMeta(ItemStack stack, String name) {
         ItemMeta meta = stack.getItemMeta();
         meta.setDisplayName(name);
+        List<String> lore = meta.getLore();
+        lore.clear();
+        lore.add(ChatColor.AQUA + "" + ChatColor.BOLD + "Usage:");
+        lore.add(ChatColor.DARK_AQUA + "1. "  + ChatColor.YELLOW + "Place down your entry portal.");
+        lore.add(ChatColor.DARK_AQUA + "2. "  + ChatColor.YELLOW +  "Right click your entry portal.");
+        lore.add(ChatColor.DARK_AQUA + "3. " + ChatColor.YELLOW + "Place down your exit portal.");
+        lore.add(ChatColor.DARK_AQUA + "4. " + ChatColor.YELLOW + "Congratulations! You've created a link with your entry portal and exit portal. If you need more help, email me at gogobebe2@gmail.com");
         stack.setItemMeta(meta);
-        return stack;
     }
 }
