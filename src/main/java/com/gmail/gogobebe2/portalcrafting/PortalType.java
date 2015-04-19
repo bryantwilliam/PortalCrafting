@@ -41,8 +41,10 @@ public enum PortalType {
         lore.add(ChatColor.DARK_AQUA + "2. "  + ChatColor.YELLOW +  "Right click your entry portal.");
         lore.add(ChatColor.DARK_AQUA + "3. " + ChatColor.YELLOW + "Place down your exit portal.");
         lore.add(ChatColor.DARK_AQUA + "4. " + ChatColor.YELLOW + "Congratulations!");
-        lore.add(ChatColor.YELLOW + "   You've created a link with your entry portal and exit portal.");
-        lore.add(ChatColor.YELLOW + "   If you need more help, email me at gogobebe2@gmail.com");
+        lore.add(ChatColor.YELLOW + "   You've created a link with your ");
+        lore.add(ChatColor.YELLOW + "   entry portal and exit portal.");
+        lore.add(ChatColor.YELLOW + "   If you need more help, ");
+        lore.add(ChatColor.YELLOW + "   email me at gogobebe2@gmail.com");
         meta.setLore(lore);
         stack.setItemMeta(meta);
     }
