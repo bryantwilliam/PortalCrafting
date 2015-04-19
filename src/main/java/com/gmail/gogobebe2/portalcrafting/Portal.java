@@ -1,12 +1,15 @@
 package com.gmail.gogobebe2.portalcrafting;
 
-import org.bukkit.inventory.ItemStack;
+import org.bukkit.Location;
 
 public class Portal {
     private PortalType type;
-    private ItemStack itemForm;
+    private Location location;
+    private boolean isLinked;
+    private Portal partner = null;
 
-    public Portal(PortalType type) {
+    public Portal(PortalType type, Location location) {
         this.type = type;
+        this.location = location;
     }
 }
