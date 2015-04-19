@@ -17,7 +17,7 @@ public class PortalCrafting extends JavaPlugin {
         createRecipies();
     }
 
-    private static void createRecipies() {
+    private void createRecipies() {
         final Material[] plateTypes = {Material.GOLD_PLATE, Material.IRON_PLATE, Material.STONE_PLATE, Material.WOOD_PLATE};
         for (Material plate : plateTypes) {
             ShapedRecipe exitRecipe = new ShapedRecipe(EXIT_PORTAL);
