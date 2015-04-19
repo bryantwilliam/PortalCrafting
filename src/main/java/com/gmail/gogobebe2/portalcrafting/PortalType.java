@@ -38,9 +38,10 @@ public enum PortalType {
         List<String> lore = new ArrayList<>();
         lore.add(ChatColor.AQUA + "" + ChatColor.BOLD + "Usage:");
         lore.add(ChatColor.DARK_AQUA + "1. "  + ChatColor.YELLOW + "Place down your entry portal.");
-        lore.add(ChatColor.DARK_AQUA + "2. "  + ChatColor.YELLOW +  "Right click your entry portal.");
-        lore.add(ChatColor.DARK_AQUA + "3. " + ChatColor.YELLOW + "Place down your exit portal.");
-        lore.add(ChatColor.DARK_AQUA + "4. " + ChatColor.YELLOW + "Congratulations!");
+        lore.add(ChatColor.DARK_AQUA + "2. "  + ChatColor.YELLOW +  "Place down your exit portal.");
+        lore.add(ChatColor.DARK_AQUA + "3. " + ChatColor.YELLOW + "Right click the entry portal.");
+        lore.add(ChatColor.DARK_AQUA + "4. " + ChatColor.YELLOW + "Right click the exit portal.");
+        lore.add(ChatColor.DARK_AQUA + "5. " + ChatColor.YELLOW + "Congratulations! Easy right?");
         lore.add(ChatColor.YELLOW + "   You've created a link with your ");
         lore.add(ChatColor.YELLOW + "   entry portal and exit portal.");
         lore.add(ChatColor.YELLOW + "   If you need more help, ");
