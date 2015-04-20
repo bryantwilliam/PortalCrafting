@@ -11,11 +11,29 @@ import java.util.ArrayList;
 import java.util.List;
 
 public enum PortalType {
-    ENTRY, EXIT;
+    EXIT, ENTRY;
+
+    private ItemStack item;
+    private String displayName;
+
+    static {
+        ENTRY.displayName = ChatColor.BLUE + "Entry Portal";
+        EXIT.displayName = ChatColor.RED + "Exit Portal";
+    }
+
+    public static void initializeRecipes() {
+        for (PortalType type : PortalType.values()) {
+            type.item = type.createItem();
+        }
+    }
 
     public ItemStack getItem() {
+        return item;
+    }
+
+    private ItemStack createItem() {
         ItemStack portal = new ItemStack(Material.ENDER_PORTAL_FRAME);
-        setMeta(portal, this.getName());
+        setMeta(portal, this.getDisplayName());
 
         ShapedRecipe recipe;
         final Material[] PLATE_TYPES = {Material.GOLD_PLATE, Material.IRON_PLATE, Material.STONE_PLATE, Material.WOOD_PLATE};
@@ -41,7 +59,7 @@ public enum PortalType {
         lore.add(ChatColor.DARK_AQUA + "2. "  + ChatColor.YELLOW +  "Place down your exit portal.");
         lore.add(ChatColor.DARK_AQUA + "3. " + ChatColor.YELLOW + "Right click the entry portal.");
         lore.add(ChatColor.DARK_AQUA + "4. " + ChatColor.YELLOW + "Right click the exit portal.");
-        lore.add(ChatColor.DARK_AQUA + "5. " + ChatColor.YELLOW + "Congratulations! Easy right?");
+        lore.add(ChatColor.DARK_AQUA + "5. " + ChatColor.YELLOW + "You're done! Easy right?");
         lore.add(ChatColor.YELLOW + "   You've created a link with your ");
         lore.add(ChatColor.YELLOW + "   entry portal and exit portal.");
         lore.add(ChatColor.YELLOW + "   If you need more help, ");
@@ -50,17 +68,8 @@ public enum PortalType {
         stack.setItemMeta(meta);
     }
 
-    private String getName() {
-        String name = null;
-        switch (this) {
-            case ENTRY:
-                name = ChatColor.BLUE + "Entry Portal";
-                break;
-            case EXIT:
-                name = ChatColor.RED + "Exit Portal";
-                break;
-        }
-        return name;
+    public String getDisplayName() {
+        return this.displayName;
     }
 
     private Material getSpecialIngredient() {
