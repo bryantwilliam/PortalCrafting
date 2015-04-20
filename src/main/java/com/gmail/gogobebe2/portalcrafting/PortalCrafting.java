@@ -1,13 +1,15 @@
 package com.gmail.gogobebe2.portalcrafting;
 
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
+import org.bukkit.block.Block;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class PortalCrafting extends JavaPlugin {
-    private List<Portal> portals = new ArrayList<>();
+    private static List<Portal> portals = new ArrayList<>();
 
     @Override
     public void onEnable() {
@@ -15,7 +17,29 @@ public class PortalCrafting extends JavaPlugin {
         PortalType.initializeRecipes();
     }
 
-    public List<Portal> getPortals() {
+    public static List<Portal> getPortals() {
         return portals;
+    }
+
+    public static Portal getPortal(Block block) {
+        for (Portal portal : portals) {
+            if (portal.getBlock().equals(block)) {
+                return portal;
+            }
+        }
+        return null;
+    }
+
+    public static Portal getPortal(Location location) {
+        for (Portal portal : portals) {
+            if (portal.getBlock().getLocation().equals(location)) {
+                return portal;
+            }
+        }
+        return null;
+    }
+
+    public static void placePortal(Portal portal) {
+        PortalCrafting.getPortals().add(portal);
     }
 }

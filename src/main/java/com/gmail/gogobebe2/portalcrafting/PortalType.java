@@ -15,10 +15,13 @@ public enum PortalType {
 
     private ItemStack item;
     private String displayName;
+    private PortalType opposite;
 
     static {
         ENTRY.displayName = ChatColor.BLUE + "Entry Portal";
         EXIT.displayName = ChatColor.RED + "Exit Portal";
+        ENTRY.opposite = EXIT;
+        EXIT.opposite = ENTRY;
     }
 
     public static void initializeRecipes() {
@@ -27,8 +30,16 @@ public enum PortalType {
         }
     }
 
+    public PortalType getOpposite() {
+        return opposite;
+    }
+
     public ItemStack getItem() {
         return item;
+    }
+
+    public static boolean isItemPortal(ItemStack item) {
+        return item.equals(PortalType.ENTRY.getItem()) || item.equals(PortalType.EXIT.getItem());
     }
 
     private ItemStack createItem() {
