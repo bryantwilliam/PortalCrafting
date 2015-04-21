@@ -26,6 +26,9 @@ public class Portal {
     }
 
     private void createLink(Portal partner) {
+        if (isLinked()) {
+            breakLink(this, this.partner);
+        }
         this.partner = partner;
     }
 
