@@ -74,6 +74,23 @@ public class PortalListener implements Listener {
         }
     }
 
+    private double[] createYRange(double y) {
+        double[] range = new double[3];
+        range[0] = y - 1;
+        range[1] = y;
+        range[2] = y + 1;
+        return range;
+    }
+
+    private boolean isInYRange(double y, double[] range) {
+        for (double yCord : range) {
+            if (y == yCord) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     @EventHandler
     public void onPlayerStepOnPortal(PlayerMoveEvent event) {
         Location to = event.getTo();
@@ -81,7 +98,7 @@ public class PortalListener implements Listener {
         Block toBlock = to.getBlock();
         Block fromBlock = from.getBlock();
 
-        if (toBlock != fromBlock) {
+        if (toBlock != fromBlock && !isInYRange(toBlock.getY(), createYRange(fromBlock.getY()))) {
             to.setY(to.getY() - 1);
             Block blockUnderneath = to.getBlock();
             Portal portal = PortalCrafting.getPortal(blockUnderneath);
@@ -103,7 +120,7 @@ public class PortalListener implements Listener {
 
                 }
                 else {
-                    player.sendMessage(ChatColor.RED + "You cannot use this portal yet! It's not linked yet!");
+                    player.sendMessage(ChatColor.RED + "You cannot use this portal yet! It's hasn't linked yet!");
                 }
             }
         }
