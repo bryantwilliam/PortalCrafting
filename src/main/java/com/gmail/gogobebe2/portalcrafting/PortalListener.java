@@ -43,19 +43,28 @@ public class PortalListener implements Listener {
         if (portal != null) {
             PortalCrafting.getPortals().remove(portal);
             event.getPlayer().sendMessage(portal.getType().getDisplayName() + ChatColor.GOLD + " removed!");
+            if (portal.isLinked()) {
+                Portal partner = portal.getPartner();
+                Portal.breakLink(portal, partner);
+                event.getPlayer().sendMessage(ChatColor.GOLD + "Link between " + portal.getType().getDisplayName()
+                        + ChatColor.GOLD + " and " + partner.getType().getDisplayName());
+            }
         }
     }
 
+    @EventHandler
     public void onBlockRightClick(PlayerInteractEvent event) {
         Player player = event.getPlayer();
         if (event.getAction().equals(Action.RIGHT_CLICK_BLOCK)) {
             Block block = event.getClickedBlock();
             Portal portal = PortalCrafting.getPortal(block);
             if (portal != null) {
-                if (selectedPortals.containsKey(player) && portal.getType().equals(selectedPortals.get(player).getType().getOpposite())) {
-                    // TODO: Create link.
-                }
-                else {
+                Portal oppositePortal = selectedPortals.get(player);
+                if (selectedPortals.containsKey(player) && portal.getType().equals(oppositePortal.getType().getOpposite())) {
+                    player.sendMessage(ChatColor.AQUA + "Linked " + portal.getType().getDisplayName() + ChatColor.AQUA
+                            + " and " + oppositePortal.getType().getDisplayName());
+                    Portal.createLink(portal, oppositePortal);
+                } else {
                     selectedPortals.put(player, portal);
                     player.sendMessage(ChatColor.GREEN + "Selected " + portal.getType().getDisplayName());
                 }

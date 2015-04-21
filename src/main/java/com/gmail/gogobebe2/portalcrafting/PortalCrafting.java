@@ -1,7 +1,6 @@
 package com.gmail.gogobebe2.portalcrafting;
 
 import org.bukkit.Bukkit;
-import org.bukkit.Location;
 import org.bukkit.block.Block;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -24,15 +23,6 @@ public class PortalCrafting extends JavaPlugin {
     public static Portal getPortal(Block block) {
         for (Portal portal : portals) {
             if (portal.getBlock().equals(block)) {
-                return portal;
-            }
-        }
-        return null;
-    }
-
-    public static Portal getPortal(Location location) {
-        for (Portal portal : portals) {
-            if (portal.getBlock().getLocation().equals(location)) {
                 return portal;
             }
         }
