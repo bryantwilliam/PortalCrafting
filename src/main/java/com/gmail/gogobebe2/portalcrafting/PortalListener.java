@@ -14,7 +14,6 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.inventory.ItemStack;
 
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -54,9 +53,7 @@ public class PortalListener implements Listener {
                 player.sendMessage(ChatColor.GOLD + "Link between " + portal.getType().getDisplayName()
                         + ChatColor.GOLD + " and " + partner.getType().getDisplayName() + " destroyed.");
             }
-            Collection<ItemStack> drops = event.getBlock().getDrops();
-            drops.clear();
-            drops.add(portal.getType().getItem());
+            player.getWorld().dropItemNaturally(player.getLocation(), portal.getType().getItem());
         }
     }
 
