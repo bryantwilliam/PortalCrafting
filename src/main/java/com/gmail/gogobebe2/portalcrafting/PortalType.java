@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public enum PortalType {
-    EXIT, ENTRY;
+    EXIT, ENTRY; //TODO: add MULTI
 
     private ItemStack item;
     private String displayName;
