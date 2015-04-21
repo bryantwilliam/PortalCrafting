@@ -14,6 +14,7 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.inventory.ItemStack;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -44,14 +45,18 @@ public class PortalListener implements Listener {
         Block block = event.getBlock();
         Portal portal = PortalCrafting.getPortal(block);
         if (portal != null) {
+            Player player = event.getPlayer();
             PortalCrafting.getPortals().remove(portal);
             event.getPlayer().sendMessage(portal.getType().getDisplayName() + ChatColor.GOLD + " removed!");
             if (portal.isLinked()) {
                 Portal partner = portal.getPartner();
                 Portal.breakLink(portal, partner);
-                event.getPlayer().sendMessage(ChatColor.GOLD + "Link between " + portal.getType().getDisplayName()
+                player.sendMessage(ChatColor.GOLD + "Link between " + portal.getType().getDisplayName()
                         + ChatColor.GOLD + " and " + partner.getType().getDisplayName() + " destroyed.");
             }
+            Collection<ItemStack> drops = event.getBlock().getDrops();
+            drops.clear();
+            drops.add(portal.getType().getItem());
         }
     }
 
