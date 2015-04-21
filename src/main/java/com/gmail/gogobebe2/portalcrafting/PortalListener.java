@@ -4,9 +4,11 @@ import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockBreakEvent;
+import org.bukkit.event.block.BlockDamageEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
@@ -23,7 +25,7 @@ public class PortalListener implements Listener {
         this.plugin = plugin;
     }
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.HIGH)
     public void onPortalPlace(BlockPlaceEvent event) {
         ItemStack item = event.getItemInHand();
         Block blockPlaced = event.getBlockPlaced();
@@ -37,7 +39,7 @@ public class PortalListener implements Listener {
         }
     }
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.NORMAL)
     public void onPortalDestroy(BlockBreakEvent event) {
         Block block = event.getBlock();
         Portal portal = PortalCrafting.getPortal(block);
@@ -53,8 +55,8 @@ public class PortalListener implements Listener {
         }
     }
 
-    @EventHandler
-    public void onBlockRightPortal(PlayerInteractEvent event) {
+    @EventHandler(priority = EventPriority.NORMAL)
+    public void onBlockRightClickPortal(PlayerInteractEvent event) {
         Player player = event.getPlayer();
         if (event.getAction().equals(Action.RIGHT_CLICK_BLOCK)) {
             Block block = event.getClickedBlock();
@@ -74,7 +76,14 @@ public class PortalListener implements Listener {
         }
     }
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.HIGH)
+    public void onPlayerMinePortal(BlockDamageEvent event) {
+        if (PortalCrafting.getPortal(event.getBlock()) != null) {
+            event.setInstaBreak(true);
+        }
+    }
+
+    @EventHandler(priority = EventPriority.NORMAL)
     public void onPlayerStepOnPortal(PlayerMoveEvent event) {
         Location to = event.getTo();
         Location from = event.getFrom();
