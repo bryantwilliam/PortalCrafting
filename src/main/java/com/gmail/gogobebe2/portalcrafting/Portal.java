@@ -31,17 +31,17 @@ public class Portal {
     }
 
     public static void createLink(Portal portal, Portal oppositePortal, PortalCrafting plugin) {
-        portal.createLink(oppositePortal);
-        oppositePortal.createLink(portal);
-        plugin.getConfig().set("portals." + portal.getID() + ".partnerID", oppositePortal.getID());
-        plugin.getConfig().set("portals." + oppositePortal.getID() + ".partnerID", portal.getID());
+        portal.createLink(oppositePortal, plugin);
+        oppositePortal.createLink(portal, plugin);
     }
 
-    private void createLink(Portal partner) {
+    private void createLink(Portal partner, PortalCrafting plugin) {
         if (isLinked()) {
             breakLink(this, this.partner);
         }
         this.partner = partner;
+        plugin.getConfig().set("portals." + this.getID() + ".partnerID", partner.getID());
+        plugin.saveConfig();
     }
 
     public static void breakLink(Portal portal, Portal partner) {
