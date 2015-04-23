@@ -102,6 +102,7 @@ public class PortalListener implements Listener {
                     if (portal.getType().equals(PortalType.ENTRY)) {
                         Portal partner = portal.getPartner();
                         Location destination = partner.getBlock().getLocation();
+                        destination.setY(destination.getY() + 1);
                         player.teleport(destination);
                         player.sendMessage(ChatColor.DARK_AQUA + "Whoosh!");
                         player.playSound(destination, Sound.PORTAL_TRAVEL, 2.0F, 1.0F);
