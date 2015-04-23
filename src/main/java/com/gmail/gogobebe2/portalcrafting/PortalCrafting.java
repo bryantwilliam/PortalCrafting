@@ -139,7 +139,6 @@ public class PortalCrafting extends JavaPlugin {
                         Portal partner = getPortal(getConfig().getInt("portals." + ID + ".partnerID"));
                         Portal.createLink(portal, partner, this);
                     }
-
                 }
             }
         }
