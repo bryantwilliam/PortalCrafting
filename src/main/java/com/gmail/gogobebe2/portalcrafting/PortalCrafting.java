@@ -20,7 +20,7 @@ public class PortalCrafting extends JavaPlugin {
     public void onEnable() {
 
         getConfig().options().copyDefaults(true);
-        saveConfig();
+        saveDefaultConfig();
 
         if (useMySQL) {
             // TODO: add sql shit here.
@@ -126,18 +126,22 @@ public class PortalCrafting extends JavaPlugin {
     }
 
     private void loadPortalsFromConfig() {
-        for (String key : getConfig().getConfigurationSection("portals").getKeys(true)) {
-            int ID = Integer.parseInt(key);
-            Portal portal = getPortalFromConfig(ID);
-            portals.add(portal);
-        }
-        for (Portal portal : portals) {
-            int ID = portal.getID();
-            if (getConfig().isSet("portals." + ID + ".partnerID")) {
-                Portal partner = getPortal(getConfig().getInt("portals." + ID + ".partnerID"));
-                Portal.createLink(portal, partner);
+        if (getConfig().isSet("portals")) {
+            for (String key : getConfig().getConfigurationSection("portals").getKeys(true)) {
+                int ID = Integer.parseInt(key);
+                Portal portal = getPortalFromConfig(ID);
+                portals.add(portal);
             }
+            if (!portals.isEmpty()) {
+                for (Portal portal : portals) {
+                    int ID = portal.getID();
+                    if (getConfig().isSet("portals." + ID + ".partnerID")) {
+                        Portal partner = getPortal(getConfig().getInt("portals." + ID + ".partnerID"));
+                        Portal.createLink(portal, partner);
+                    }
 
+                }
+            }
         }
     }
 
