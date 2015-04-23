@@ -1,6 +1,10 @@
 name: PortalCrafting
-version: 1.1.2-PREALPHA-SNAPSHOT
+version: 2.0.0-PREALPHA-SNAPSHOT
 main: com.gmail.gogobebe2.portalcrafting.PortalCrafting
 description:
 author: William Bryant (gogobebe2)
 website: gogobebe2@gmail.com
+commands:
+  portalcrafting:
+    usage: /<command>
+    description: Can't be fucked writing a description.

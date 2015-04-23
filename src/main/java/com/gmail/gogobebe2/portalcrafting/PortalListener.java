@@ -32,7 +32,7 @@ public class PortalListener implements Listener {
         if (PortalType.isItemPortal(item)) {
             for (PortalType type : PortalType.values()) {
                 if (type.getItem().equals(item)) {
-                    PortalCrafting.placePortal(new Portal(type, blockPlaced));
+                    plugin.placePortal(new Portal(type, blockPlaced));
                     event.getPlayer().sendMessage(type.getDisplayName() + ChatColor.GREEN + " placed!");
                 }
             }
@@ -45,7 +45,7 @@ public class PortalListener implements Listener {
         Portal portal = PortalCrafting.getPortal(block);
         if (portal != null) {
             Player player = event.getPlayer();
-            PortalCrafting.getPortals().remove(portal);
+            plugin.removePortal(portal);
             event.getPlayer().sendMessage(portal.getType().getDisplayName() + ChatColor.GOLD + " removed!");
             if (portal.isLinked()) {
                 Portal partner = portal.getPartner();

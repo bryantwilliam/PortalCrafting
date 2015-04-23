@@ -6,10 +6,20 @@ public class Portal {
     private PortalType type;
     private Block block;
     private Portal partner = null;
+    private int ID;
 
     public Portal(PortalType type, Block block) {
+        this(type, block, PortalCrafting.getPortals().size() + 1);
+    }
+
+    public Portal(PortalType type, Block block, int ID) {
         this.type = type;
         this.block = block;
+        this.ID = ID;
+    }
+
+    public int getID() {
+        return this.ID;
     }
 
     public Block getBlock() {
