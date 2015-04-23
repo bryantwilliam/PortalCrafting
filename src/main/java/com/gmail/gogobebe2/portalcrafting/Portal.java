@@ -30,9 +30,11 @@ public class Portal {
         return this.type;
     }
 
-    public static void createLink(Portal portal, Portal oppositePortal) {
+    public static void createLink(Portal portal, Portal oppositePortal, PortalCrafting plugin) {
         portal.createLink(oppositePortal);
         oppositePortal.createLink(portal);
+        plugin.getConfig().set("portals." + portal.getID() + ".partnerID", oppositePortal.getID());
+        plugin.getConfig().set("portals." + oppositePortal.getID() + ".partnerID", portal.getID());
     }
 
     private void createLink(Portal partner) {
