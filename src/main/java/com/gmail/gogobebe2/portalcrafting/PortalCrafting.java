@@ -45,11 +45,13 @@ public class PortalCrafting extends JavaPlugin {
     public void onDisable() {
         reloadConfig();
         saveConfig();
-        try {
-            mysql.closeDB();
-        } catch (SQLException e) {
-            e.printStackTrace();
-            getLogger().severe("Error! The database has closed before I could!");
+        if (useMySQL) {
+            try {
+                mysql.closeDB();
+            } catch (SQLException e) {
+                e.printStackTrace();
+                getLogger().severe("Error! The database has closed before I could!");
+            }
         }
     }
     @Override
