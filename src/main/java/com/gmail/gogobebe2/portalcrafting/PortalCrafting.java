@@ -127,7 +127,7 @@ public class PortalCrafting extends JavaPlugin {
 
     private void loadPortalsFromConfig() {
         if (getConfig().isSet("portals")) {
-            for (String key : getConfig().getConfigurationSection("portals").getKeys(true)) {
+            for (String key : getConfig().getConfigurationSection("portals").getKeys(false)) {
                 int ID = Integer.parseInt(key);
                 Portal portal = getPortalFromConfig(ID);
                 portals.add(portal);
