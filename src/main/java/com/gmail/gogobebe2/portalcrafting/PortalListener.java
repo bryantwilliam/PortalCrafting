@@ -68,7 +68,7 @@ public class PortalListener implements Listener {
                 if (selectedPortals.containsKey(player) && portal.getType().equals(oppositePortal.getType().getOpposite())) {
                     player.sendMessage(ChatColor.AQUA + "Linked " + portal.getType().getDisplayName() + ChatColor.AQUA
                             + " and " + oppositePortal.getType().getDisplayName());
-                    Portal.createLink(portal, oppositePortal);
+                    Portal.createLink(portal, oppositePortal, plugin);
                     selectedPortals.remove(player);
                 } else {
                     selectedPortals.put(player, portal);
