@@ -1,6 +1,8 @@
 package com.gmail.gogobebe2.portalcrafting;
 
-import org.bukkit.*;
+import org.bukkit.ChatColor;
+import org.bukkit.Location;
+import org.bukkit.Sound;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -53,7 +55,7 @@ public class PortalListener implements Listener {
                 player.sendMessage(ChatColor.GOLD + "Link between " + portal.getType().getDisplayName()
                         + ChatColor.GOLD + " and " + partner.getType().getDisplayName() + " destroyed.");
             }
-            player.getWorld().dropItemNaturally(player.getLocation(), portal.getType().getItem());
+            player.getWorld().dropItemNaturally(block.getLocation(), portal.getType().getItem());
         }
     }
 
@@ -64,15 +66,20 @@ public class PortalListener implements Listener {
             Block block = event.getClickedBlock();
             Portal portal = PortalCrafting.getPortal(block);
             if (portal != null) {
-                Portal oppositePortal = selectedPortals.get(player);
-                if (selectedPortals.containsKey(player) && portal.getType().equals(oppositePortal.getType().getOpposite())) {
-                    player.sendMessage(ChatColor.AQUA + "Linked " + portal.getType().getDisplayName() + ChatColor.AQUA
-                            + " and " + oppositePortal.getType().getDisplayName());
-                    Portal.createLink(portal, oppositePortal, plugin);
-                    selectedPortals.remove(player);
+                if (player.isSneaking()) {
+                    player.sendMessage(ChatColor.GOLD + "Keep in mind, you're sneaking so no selection will take place.");
+
                 } else {
-                    selectedPortals.put(player, portal);
-                    player.sendMessage(ChatColor.GREEN + "Selected " + portal.getType().getDisplayName());
+                    Portal oppositePortal = selectedPortals.get(player);
+                    if (selectedPortals.containsKey(player) && portal.getType().equals(oppositePortal.getType().getOpposite())) {
+                        player.sendMessage(ChatColor.AQUA + "Linked " + portal.getType().getDisplayName() + ChatColor.AQUA
+                                + " and " + oppositePortal.getType().getDisplayName());
+                        Portal.createLink(portal, oppositePortal, plugin);
+                        selectedPortals.remove(player);
+                    } else {
+                        selectedPortals.put(player, portal);
+                        player.sendMessage(ChatColor.GREEN + "Selected " + portal.getType().getDisplayName());
+                    }
                 }
             }
         }
@@ -93,7 +100,7 @@ public class PortalListener implements Listener {
         Block fromBlock = from.getBlock();
 
         if (toBlock != fromBlock) {
-            to.setY(to.getY() - 1);
+            to.setY(to.getY() - 1.1875);
             Block blockUnderneath = to.getBlock();
             Portal portal = PortalCrafting.getPortal(blockUnderneath);
             if (portal != null) {
@@ -106,15 +113,13 @@ public class PortalListener implements Listener {
                         player.teleport(destination);
                         player.sendMessage(ChatColor.DARK_AQUA + "Whoosh!");
                         player.playSound(destination, Sound.PORTAL_TRAVEL, 2.0F, 1.0F);
-                    }
-                    else {
+                    } else {
                         player.sendMessage(ChatColor.RED + "You can only teleport through entry portals. 1 way only. "
                                 + "New recipe for multiway portals coming soon! " +
                                 "Bug me at gogobebe2@gmail.com to make me do it.");
                     }
 
-                }
-                else {
+                } else {
                     player.sendMessage(ChatColor.RED + "You cannot use this portal yet! It's hasn't linked yet!");
                 }
             }
