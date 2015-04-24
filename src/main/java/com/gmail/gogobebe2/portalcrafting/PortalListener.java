@@ -100,7 +100,7 @@ public class PortalListener implements Listener {
         Block fromBlock = from.getBlock();
 
         if (toBlock != fromBlock) {
-            to.setY(to.getY() + 1);
+            to.setY(to.getY() - 0.8125);
             Block blockUnderneath = to.getBlock();
             Portal portal = PortalCrafting.getPortal(blockUnderneath);
             if (portal != null) {
@@ -109,7 +109,7 @@ public class PortalListener implements Listener {
                     if (portal.getType().equals(PortalType.ENTRY)) {
                         Portal partner = portal.getPartner();
                         Location destination = partner.getBlock().getLocation();
-                        destination.setY(destination.getY() + 1);
+                        destination.setY(destination.getY() + 0.81250);
                         player.teleport(destination);
                         player.sendMessage(ChatColor.DARK_AQUA + "Whoosh!");
                         player.playSound(destination, Sound.PORTAL_TRAVEL, 2.0F, 1.0F);
