@@ -39,7 +39,7 @@ public enum PortalType {
     }
 
     public static boolean isItemPortal(ItemStack item) {
-        return item.equals(PortalType.ENTRY.getItem()) || item.equals(PortalType.EXIT.getItem());
+        return item.getItemMeta().getDisplayName().equals(PortalType.ENTRY.getDisplayName()) || item.equals(PortalType.EXIT.getDisplayName());
     }
 
     private ItemStack createItem() {

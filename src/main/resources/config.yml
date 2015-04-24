@@ -5,5 +5,5 @@ mySQL:
   username: your_username
   password: your_password
   databaseName: your_mysql_database
-# The following will only be used if you set 'usesql' to false; Otherwise the mySQL database will be used.
+# The following portal data will only be used if you set 'usesql' to false; Otherwise the mySQL database will be used.
 portals:
