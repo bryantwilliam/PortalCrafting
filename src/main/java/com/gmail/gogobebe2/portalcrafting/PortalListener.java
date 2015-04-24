@@ -99,7 +99,7 @@ public class PortalListener implements Listener {
         Block toBlock = to.getBlock();
         Block fromBlock = from.getBlock();
 
-        if (toBlock != fromBlock) {
+        if (toBlock.getLocation() != fromBlock.getLocation()) {
             to.setY(to.getY() - 0.8125);
             Block blockUnderneath = to.getBlock();
             Portal portal = PortalCrafting.getPortal(blockUnderneath);
