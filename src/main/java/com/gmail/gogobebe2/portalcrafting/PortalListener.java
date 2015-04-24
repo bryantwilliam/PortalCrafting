@@ -114,9 +114,11 @@ public class PortalListener implements Listener {
                         player.sendMessage(ChatColor.DARK_AQUA + "Whoosh!");
                         player.playSound(destination, Sound.PORTAL_TRAVEL, 2.0F, 1.0F);
                     } else {
-                        player.sendMessage(ChatColor.RED + "You can only teleport through entry portals. 1 way only. "
-                                + "New recipe for multiway portals coming soon! " +
-                                "Bug me at gogobebe2@gmail.com to make me do it.");
+                        if (PortalCrafting.getPortal(fromBlock) == null || PortalCrafting.getPortal(fromBlock).getType().equals(PortalType.EXIT)) {
+                            player.sendMessage(ChatColor.RED + "You can only teleport through entry portals. 1 way only. "
+                                    + "New recipe for multiway portals coming soon! " +
+                                    "Bug me at gogobebe2@gmail.com to make me do it.");
+                        }
                     }
 
                 } else {
