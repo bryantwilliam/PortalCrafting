@@ -31,7 +31,7 @@ public class PortalListener implements Listener {
         Block blockPlaced = event.getBlockPlaced();
         if (PortalType.isItemPortal(item)) {
             for (PortalType type : PortalType.values()) {
-                if (type.getItem().getItemMeta().equals(item.getItemMeta())) {
+                if (type.getItem().getItemMeta().getDisplayName().equalsIgnoreCase(item.getItemMeta().getDisplayName())) {
                     plugin.placePortal(new Portal(type, blockPlaced));
                     event.getPlayer().sendMessage(type.getDisplayName() + ChatColor.GREEN + " placed!");
                 }
