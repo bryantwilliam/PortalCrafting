@@ -41,8 +41,11 @@ public class PortalListener implements Listener {
         }
     }
 
-    @EventHandler(priority = EventPriority.NORMAL)
+    @EventHandler(priority = EventPriority.LOW)
     public void onPortalDestroy(BlockBreakEvent event) {
+        if (event.isCancelled()) {
+            return;
+        }
         Block block = event.getBlock();
         Portal portal = PortalCrafting.getPortal(block);
         if (portal != null) {
