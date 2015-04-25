@@ -95,21 +95,18 @@ public class PortalListener implements Listener {
         }
     }
 
-    private boolean isInRange(double num1, double num2, double min, double max) {
-        return (num1 >= min && num1 <= max) && (num2 >= min && num2 <= max);
-    }
-
     private boolean isInRange(Location location1, Location location2) {
-        double x1 = location1.getX();
-        double y1 = location1.getY();
-        double z1 = location1.getZ();
+        int x1 = (int) location1.getX();
+        int y1 = (int) location1.getY();
+        int z1 = (int) location1.getZ();
 
-        double x2 = location2.getX();
-        double y2 = location2.getY();
-        double z2 = location2.getZ();
+        int x2 = (int) location2.getX();
+        int y2 = (int) location2.getY();
+        int z2 = (int) location2.getZ();
 
-        return (isInRange(x1, x2, x1 - 1, x1 + 1) && isInRange(y1, y2, y1 - 1, y1 + 1) && isInRange(z1, z2, z1 - 1, z1 + 1));
+        return x1 == x2 && y1 == y2 && z1 == z2;
     }
+
     @EventHandler(priority = EventPriority.NORMAL)
     public void onPlayerStepOnPortal(PlayerMoveEvent event) {
         Location to = event.getTo();
@@ -117,7 +114,7 @@ public class PortalListener implements Listener {
         Block toBlock = to.getBlock();
         Block fromBlock = from.getBlock();
 
-        if (isInRange(toBlock.getLocation(), fromBlock.getLocation())) {
+        if (!isInRange(toBlock.getLocation(), fromBlock.getLocation())) {
             double eyeToBlockDifference = 0.8125;
             to.setY(to.getY() -eyeToBlockDifference);
             Block blockUnderneath = to.getBlock();
