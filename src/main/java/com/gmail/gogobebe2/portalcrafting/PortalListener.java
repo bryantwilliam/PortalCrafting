@@ -113,7 +113,7 @@ public class PortalListener implements Listener {
                         destination.setY(destination.getY() +eyeToBlockDifference);
                         player.teleport(destination);
                         player.sendMessage(ChatColor.DARK_AQUA + "Whoosh!");
-                        player.playSound(destination, Sound.PORTAL_TRAVEL, 2.0F, 1.0F);
+                        player.playSound(destination, Sound.PORTAL_TRAVEL, 2.0F, 0.5F);
                     } else {
                         Location under = new Location(fromBlock.getWorld(), fromBlock.getX(), fromBlock.getY() -eyeToBlockDifference, fromBlock.getZ());
                         Block underBlock = under.getBlock();
