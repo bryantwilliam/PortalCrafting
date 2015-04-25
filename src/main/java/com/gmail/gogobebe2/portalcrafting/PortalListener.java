@@ -100,7 +100,8 @@ public class PortalListener implements Listener {
         Block fromBlock = from.getBlock();
 
         if (toBlock.getLocation() != fromBlock.getLocation()) {
-            to.setY(to.getY() - 0.8125);
+            double eyeToBlockDifference = 0.8125;
+            to.setY(to.getY() -eyeToBlockDifference);
             Block blockUnderneath = to.getBlock();
             Portal portal = PortalCrafting.getPortal(blockUnderneath);
             if (portal != null) {
@@ -109,12 +110,14 @@ public class PortalListener implements Listener {
                     if (portal.getType().equals(PortalType.ENTRY)) {
                         Portal partner = portal.getPartner();
                         Location destination = partner.getBlock().getLocation();
-                        destination.setY(destination.getY() + 0.81250);
+                        destination.setY(destination.getY() +eyeToBlockDifference);
                         player.teleport(destination);
                         player.sendMessage(ChatColor.DARK_AQUA + "Whoosh!");
                         player.playSound(destination, Sound.PORTAL_TRAVEL, 2.0F, 1.0F);
                     } else {
-                        if (PortalCrafting.getPortal(fromBlock) == null || PortalCrafting.getPortal(fromBlock).getType().equals(PortalType.EXIT)) {
+                        Location under = new Location(fromBlock.getWorld(), fromBlock.getX(), fromBlock.getY() -eyeToBlockDifference, fromBlock.getZ());
+                        Block underBlock = under.getBlock();
+                        if (PortalCrafting.getPortal(underBlock) == null) {
                             player.sendMessage(ChatColor.RED + "You can only teleport through entry portals. 1 way only. "
                                     + "New recipe for multiway portals coming soon! " +
                                     "Bug me at gogobebe2@gmail.com to make me do it.");
