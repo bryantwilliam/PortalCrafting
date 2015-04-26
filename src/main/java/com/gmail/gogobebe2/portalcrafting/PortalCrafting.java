@@ -1,6 +1,7 @@
 package com.gmail.gogobebe2.portalcrafting;
 
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.block.Block;
 import org.bukkit.command.Command;
@@ -60,6 +61,10 @@ public class PortalCrafting extends JavaPlugin {
             if (args.length != 0) {
                 if (args[0].equalsIgnoreCase("reload")) {
                     reloadConfig();
+                    if (useMySQL) {
+                        // TODO: do sql stuff.
+                    }
+                    sender.sendMessage(ChatColor.GREEN + "config/databases reloaded!");
                 }
             }
             return true;
@@ -139,7 +144,7 @@ public class PortalCrafting extends JavaPlugin {
                     int ID = portal.getID();
                     if (getConfig().isSet("portals." + ID + ".partnerID")) {
                         Portal partner = getPortal(getConfig().getInt("portals." + ID + ".partnerID"));
-                        Portal.createLink(portal, partner, this);
+                        Portal.createLink(portal, partner);
                     }
                 }
             }
@@ -154,7 +159,7 @@ public class PortalCrafting extends JavaPlugin {
                 getConfig().getDouble("portals." + ID + ".location.y"),
                 getConfig().getDouble("portals." + ID + ".location.z"));
         Block block = location.getBlock();
-        return new Portal(type, block, ID);
+        return new Portal(type, block, this, ID);
     }
 
 }

@@ -35,8 +35,14 @@ public class PortalListener implements Listener {
         if (PortalType.isItemPortal(item)) {
             for (PortalType type : PortalType.values()) {
                 if (type.getItem().getItemMeta().getDisplayName().equalsIgnoreCase(item.getItemMeta().getDisplayName())) {
-                    plugin.placePortal(new Portal(type, blockPlaced));
-                    event.getPlayer().sendMessage(type.getDisplayName() + ChatColor.GREEN + " placed!");
+                    Player player = event.getPlayer();
+                    if (player.hasPermission("pc.create")) {
+                        plugin.placePortal(new Portal(type, blockPlaced, plugin));
+                        event.getPlayer().sendMessage(type.getDisplayName() + ChatColor.GREEN + " placed!");
+                    }
+                    else {
+                        player.sendMessage(ChatColor.RED + "You do not have permission to create portals!");
+                    }
                 }
             }
         }
@@ -81,7 +87,7 @@ public class PortalListener implements Listener {
                     if (selectedPortals.containsKey(player) && portal.getType().equals(oppositePortal.getType().getOpposite())) {
                         player.sendMessage(ChatColor.AQUA + "Linked " + portal.getType().getDisplayName() + ChatColor.AQUA
                                 + " and " + oppositePortal.getType().getDisplayName());
-                        Portal.createLink(portal, oppositePortal, plugin);
+                        Portal.createLink(portal, oppositePortal);
                         selectedPortals.remove(player);
                     } else {
                         selectedPortals.put(player, portal);

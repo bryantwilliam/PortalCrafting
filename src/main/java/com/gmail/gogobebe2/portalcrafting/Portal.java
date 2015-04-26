@@ -3,19 +3,21 @@ package com.gmail.gogobebe2.portalcrafting;
 import org.bukkit.block.Block;
 
 public class Portal {
+    private PortalCrafting plugin;
     private PortalType type;
     private Block block;
     private Portal partner = null;
     private int ID;
 
-    public Portal(PortalType type, Block block) {
-        this(type, block, PortalCrafting.getPortals().size() + 1);
+    public Portal(PortalType type, Block block, PortalCrafting plugin) {
+        this(type, block, plugin, PortalCrafting.getPortals().size() + 1);
     }
 
-    public Portal(PortalType type, Block block, int ID) {
+    public Portal(PortalType type, Block block, PortalCrafting plugin, int ID) {
         this.type = type;
         this.block = block;
         this.ID = ID;
+        this.plugin = plugin;
     }
 
     public int getID() {
@@ -30,12 +32,12 @@ public class Portal {
         return this.type;
     }
 
-    public static void createLink(Portal portal, Portal oppositePortal, PortalCrafting plugin) {
-        portal.createLink(oppositePortal, plugin);
-        oppositePortal.createLink(portal, plugin);
+    public static void createLink(Portal portal, Portal oppositePortal) {
+        portal.createLink(oppositePortal);
+        oppositePortal.createLink(portal);
     }
 
-    private void createLink(Portal partner, PortalCrafting plugin) {
+    private void createLink(Portal partner) {
         if (isLinked()) {
             breakLink(this, this.partner);
         }
@@ -47,10 +49,12 @@ public class Portal {
     public static void breakLink(Portal portal, Portal partner) {
         portal.breakLink();
         partner.breakLink();
+
     }
 
     private void breakLink() {
         partner = null;
+        plugin.getConfig().set("portals." + this.getID() + ".partnerID", null);
     }
 
     public boolean isLinked() {
