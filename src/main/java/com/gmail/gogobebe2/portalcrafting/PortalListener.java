@@ -1,6 +1,7 @@
 package com.gmail.gogobebe2.portalcrafting;
 
 import org.bukkit.ChatColor;
+import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Sound;
 import org.bukkit.block.Block;
@@ -50,6 +51,9 @@ public class PortalListener implements Listener {
         Portal portal = PortalCrafting.getPortal(block);
         if (portal != null) {
             Player player = event.getPlayer();
+            if (player.getGameMode().equals(GameMode.CREATIVE)) {
+                return;
+            }
             plugin.removePortal(portal);
             event.getPlayer().sendMessage(portal.getType().getDisplayName() + ChatColor.GOLD + " removed!");
             if (portal.isLinked()) {
