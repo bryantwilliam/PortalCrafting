@@ -38,10 +38,10 @@ public class Portal {
     }
 
     private void createLink(Portal partner) {
-        this.partner = partner;
         if (isLinked()) {
             breakLink(this, this.partner);
         }
+        this.partner = partner;
         plugin.getConfig().set("portals." + this.getID() + ".partnerID", partner.getID());
         plugin.saveConfig();
     }
