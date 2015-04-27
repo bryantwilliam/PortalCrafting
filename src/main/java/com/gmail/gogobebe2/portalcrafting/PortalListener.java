@@ -57,9 +57,6 @@ public class PortalListener implements Listener {
         Portal portal = PortalCrafting.getPortal(block);
         if (portal != null) {
             Player player = event.getPlayer();
-            if (player.getGameMode().equals(GameMode.CREATIVE)) {
-                return;
-            }
             plugin.removePortal(portal);
             event.getPlayer().sendMessage(portal.getType().getDisplayName() + ChatColor.GOLD + " removed!");
             if (portal.isLinked()) {
@@ -68,7 +65,9 @@ public class PortalListener implements Listener {
                 player.sendMessage(ChatColor.GOLD + "Link between " + portal.getType().getDisplayName()
                         + ChatColor.GOLD + " and " + partner.getType().getDisplayName() + " destroyed.");
             }
-            player.getWorld().dropItemNaturally(block.getLocation(), portal.getType().getItem());
+            if (!player.getGameMode().equals(GameMode.CREATIVE)) {
+                player.getWorld().dropItemNaturally(block.getLocation(), portal.getType().getItem());
+            }
         }
     }
 

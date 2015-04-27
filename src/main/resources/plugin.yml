@@ -1,5 +1,5 @@
 name: PortalCrafting
-version: 1.1.21-ALPHA-SNAPSHOT
+version: 1.1.22-ALPHA-SNAPSHOT
 main: com.gmail.gogobebe2.portalcrafting.PortalCrafting
 description:
 author: William Bryant (gogobebe2)
@@ -8,8 +8,8 @@ commands:
   portalcrafting:
     usage: /<command>
     description: Can't be fucked writing a description.
-    permissions:
-      pc.reload:
-        default: op
-      pc.create:
-        default: true
+permissions:
+  pc.reload:
+    default: op
+  pc.create:
+    default: true
